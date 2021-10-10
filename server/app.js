@@ -33,7 +33,13 @@ app.post("/api/v1/auth", (req, res) => {
 });
 
 app.get("/api/v1/result", (req, res) => {
-  const morseStringOutput = req.body.textInput
+  const textInput = req.body.textInput;
+
+  if (!textInput) {
+    throw new Error("Please provide text", 400);
+  }
+
+  const morseStringOutput = textInput
     .split("") // Transform the string into an array: ['T', 'h', 'i', 's'...
     .map((element) => {
       // Replace each character with a morse "letter"
@@ -47,5 +53,5 @@ app.get("/api/v1/result", (req, res) => {
 
 app.listen(
   process.env.PORT,
-  console.log(`Server is listening on port ${process.env.PORT}...`)
+  console.log(`Server is listening on port ${process.env.PORT}`)
 );
