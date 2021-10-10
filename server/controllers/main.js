@@ -4,11 +4,20 @@ import { morseSchema } from "../morseSchema.js";
 // @desc     Get JWT
 // @route    POST /api/v1/auth
 // @access   Public
-export const authUser = async (req, res) => {
+export const authUser = async (req, res, next) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    throw new Error("Please provide email and password", 400);
+    res.json({
+      error: "Please provide email and password",
+    });
+  } else if (
+    username !== process.env.USERNAME ||
+    password !== process.env.PASSWORD
+  ) {
+    res.json({
+      error: "Please provide valid username or password",
+    });
   }
 
   const id = new Date().getDate();
@@ -32,7 +41,9 @@ export const getMorseOutput = async (req, res) => {
   const textInput = req.body.textInput;
 
   if (!textInput) {
-    throw new Error("Please provide text", 400);
+    res.json({
+      error: "Please provide text",
+    });
   }
 
   const morseStringOutput = textInput
