@@ -9,7 +9,7 @@ export const authUser = async (req, res, next) => {
 
   if (!username || !password) {
     res.json({
-      error: "Please provide email and password",
+      error: "Please provide username and password",
     });
   } else if (
     username !== process.env.USERNAME ||
