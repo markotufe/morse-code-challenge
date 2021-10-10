@@ -2,6 +2,7 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import cors from "cors";
+import { morseSchema } from "./morseSchema.js";
 
 dotenv.config();
 
@@ -32,70 +33,11 @@ app.post("/api/v1/auth", (req, res) => {
 });
 
 app.get("/api/v1/result", (req, res) => {
-  const schema = {
-    a: ".-",
-    b: "-...",
-    c: "-.-.",
-    d: "-..",
-    e: ".",
-    f: "..-.",
-    g: "--.",
-    h: "....",
-    i: "..",
-    j: ".---",
-    k: "-.-",
-    l: ".-..",
-    m: "--",
-    n: "-.",
-    o: "---",
-    p: ".--.",
-    q: "--.-",
-    r: ".-.",
-    s: "...",
-    t: "-",
-    u: "..-",
-    v: "...-",
-    w: ".--",
-    x: "-..-",
-    y: "-.--",
-    z: "--..",
-    " ": "/",
-    1: ".----",
-    2: "..---",
-    3: "...--",
-    4: "....-",
-    5: ".....",
-    6: "-....",
-    7: "--...",
-    8: "---..",
-    9: "----.",
-    0: "-----",
-    ".": ".-.-.-",
-    ",": "--..--",
-    "?": "..--..",
-    "'": ".----.",
-    "/": "-..-.",
-    "(": "-.--.",
-    ")": "-.--.-",
-    "&": ".-...",
-    ":": "---...",
-    ";": "-.-.-.",
-    "=": "-...-",
-    "+": ".-.-.",
-    "-": "-....-",
-    _: "..--.-",
-    '"': ".-..-.",
-    $: "...-..-",
-    "!": "-.-.--",
-    "@": ".--.-.",
-    " ": "/",
-  };
-
   const morseStringOutput = req.body.textInput
     .split("") // Transform the string into an array: ['T', 'h', 'i', 's'...
     .map((element) => {
       // Replace each character with a morse "letter"
-      return schema[element.toLowerCase()] || ""; // Lowercase only, ignore unknown characters.
+      return morseSchema[element.toLowerCase()] || ""; // Lowercase only, ignore unknown characters.
     })
     .join(" ") // Convert the array back to a string.
     .replace(/ +/g, " "); // Replace double spaces that may occur when unknow characters were in the source string.
