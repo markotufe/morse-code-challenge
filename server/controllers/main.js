@@ -8,14 +8,14 @@ export const authUser = async (req, res, next) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    res.json({
+    return res.status(401).json({
       error: "Please provide username and password",
     });
   } else if (
     username !== process.env.USERNAME ||
     password !== process.env.PASSWORD
   ) {
-    res.json({
+    return res.status(401).json({
       error: "Please provide valid username or password",
     });
   }
@@ -41,7 +41,7 @@ export const getMorseOutput = async (req, res) => {
   const textInput = req.body.textInput;
 
   if (!textInput) {
-    res.json({
+    return res.status(400).json({
       error: "Please provide text",
     });
   }
