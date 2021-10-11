@@ -63,9 +63,17 @@ function App() {
   };
 
   return (
-    <div>
-      <button onClick={getMorseOutput}>Get morse output</button>
-      {morseOutput}
+    <div className="morse-screen">
+      <div className="morse-content">
+        <button className="get-morse-output-button" onClick={getMorseOutput}>
+          Get morse output
+        </button>
+        {morseOutput && (
+          <div className="morse-output-container">
+            <p className="morse-output-text">{morseOutput}</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

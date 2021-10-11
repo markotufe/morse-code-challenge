@@ -3,3 +3,34 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.morse-screen {
+  min-height: 100vh;
+  background-color: #fbfbfb;
+}
+
+.get-morse-output-button {
+  border: none;
+  display: block;
+  background: #0072ff;
+  min-width: 120px;
+  min-height: 35px;
+  border-radius: 2px;
+  color: white;
+  cursor: pointer;
+}
+
+.morse-output-container {
+  background: #1111fb59;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 15px;
+}
+
+.morse-output-text {
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: 21px;
+}
