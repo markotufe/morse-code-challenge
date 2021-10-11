@@ -35,7 +35,7 @@ export const authUser = async (req, res, next) => {
 };
 
 // @desc     Get Morse code text
-// @route    GET /api/v1/morse-response
+// @route    POST /api/v1/morse-response
 // @access   Private
 export const getMorseOutput = async (req, res) => {
   const textInput = req.body.textInput;

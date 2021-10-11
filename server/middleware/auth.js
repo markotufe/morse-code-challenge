@@ -6,7 +6,7 @@ const authMiddleware = async (req, res, next) => {
 
   //moramo proveriti da li token pocinje sa Bearer razmak!!!!!!
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    res.json({
+    res.status(401).json({
       error: "Please provide token",
     });
   }
@@ -27,7 +27,7 @@ const authMiddleware = async (req, res, next) => {
     req.user = { id, username };
     next(); //ako je sve ok da odemo na sledeci middleware, a to je getMorseOutput controller
   } catch (error) {
-    res.json({
+    res.status(500).json({
       error,
     });
   }

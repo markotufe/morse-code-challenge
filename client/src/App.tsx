@@ -1,9 +1,13 @@
 import { useState } from "react";
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import "./App.css";
 
-interface IResponse {
+interface TokenResponse {
   token: string;
+}
+
+interface MorseResponse {
+  morseString: string;
 }
 
 interface IError {
@@ -11,18 +15,46 @@ interface IError {
 }
 
 function App() {
-  const [token, setToken] = useState("");
+  const [morseOutput, setMorseOutput] = useState("");
 
-  const getToken = async () => {
+  const baseURL = "http://localhost:5000/api/v1";
+
+  const getMorseOutput = async () => {
+    //get token
     try {
-      const { data }: AxiosResponse<IResponse> = await axios.post(
-        "http://localhost:5000/api/v1/auth",
-        {
+      const authUserOptions: AxiosRequestConfig = {
+        method: "post",
+        url: `${baseURL}/auth`,
+        data: {
           username: process.env.REACT_APP_USERNAME,
           password: process.env.REACT_APP_PASSWORD,
-        }
+        },
+      };
+
+      const { data }: AxiosResponse<TokenResponse> = await axios(
+        authUserOptions
       );
-      setToken(data.token);
+
+      //get morse output
+      const stringFirstPart = "Test 2021";
+      const tokenExp = JSON.parse(atob(data.token.split(".")[1]));
+
+      const morseRequestOptions: AxiosRequestConfig = {
+        method: "post",
+        url: `${baseURL}/morse-response`,
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${data.token}`,
+        },
+        data: {
+          textInput: `${stringFirstPart} : ${tokenExp}`,
+        },
+      };
+      const response: AxiosResponse<MorseResponse> = await axios(
+        morseRequestOptions
+      );
+      setMorseOutput(response.data.morseString);
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {
         console.log((err.response?.data as IError).error);
@@ -32,8 +64,8 @@ function App() {
 
   return (
     <div>
-      <button onClick={getToken}>Get morse output</button>
-      {token}
+      <button onClick={getMorseOutput}>Get morse output</button>
+      {morseOutput}
     </div>
   );
 }
