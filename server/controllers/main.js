@@ -47,13 +47,12 @@ export const getMorseOutput = async (req, res) => {
   }
 
   const morseStringOutput = textInput
-    .split("") // Transform the string into an array: ['T', 'h', 'i', 's'...
+    .split("")
     .map((element) => {
-      // Replace each character with a morse "letter"
-      return morseSchema[element.toLowerCase()] || ""; // Lowercase only, ignore unknown characters.
+      return morseSchema[element.toLowerCase()] || "";
     })
-    .join(" ") // Convert the array back to a string.
-    .replace(/ +/g, " "); // Replace double spaces that may occur when unknow characters were in the source string.
+    .join(" ")
+    .replace(/ +/g, " ");
 
   res.status(200).json({ morseString: morseStringOutput });
 };
