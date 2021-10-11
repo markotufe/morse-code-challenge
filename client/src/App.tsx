@@ -37,7 +37,9 @@ function App() {
 
       //get morse output
       const stringFirstPart = "Test 2021";
-      const tokenExp = JSON.parse(atob(data.token.split(".")[1])).exp;
+      const token = data.token;
+      const tokenExp = JSON.parse(atob(token.split(".")[1])).exp;
+      const textInput = `${stringFirstPart} : ${tokenExp}`;
 
       const morseRequestOptions: AxiosRequestConfig = {
         method: "post",
@@ -45,10 +47,10 @@ function App() {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: `Bearer ${data.token}`,
+          Authorization: `Bearer ${token}`,
         },
         data: {
-          textInput: `${stringFirstPart} : ${tokenExp}`,
+          textInput,
         },
       };
       const response: AxiosResponse<MorseResponse> = await axios(
@@ -65,6 +67,7 @@ function App() {
   return (
     <div className="morse-screen">
       <div className="morse-content">
+        <h2 className="morse-code-header">Morse code challenge</h2>
         <button className="get-morse-output-button" onClick={getMorseOutput}>
           Get morse output
         </button>
