@@ -37,7 +37,7 @@ function App() {
 
       //get morse output
       const stringFirstPart = "Test 2021";
-      const tokenExp = JSON.parse(atob(data.token.split(".")[1]));
+      const tokenExp = JSON.parse(atob(data.token.split(".")[1])).exp;
 
       const morseRequestOptions: AxiosRequestConfig = {
         method: "post",
