@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap");
 
 * {
   margin: 0;
@@ -12,7 +12,7 @@
   background-color: #fbfbfb;
   display: flex;
   justify-content: center;
-  margin-top: 50px;
+  padding-top: 50px;
 }
 
 .get-morse-output-button {
@@ -46,4 +46,21 @@
 .morse-code-header {
   text-align: center;
   margin-bottom: 20px;
+}
+
+.morse-code-paragraph {
+  font-weight: 200;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.morse-code-paragraph span {
+  font-weight: bold;
+  font-style: italic;
+}
+
+.error-message {
+  text-align: center;
+  margin-top: 17px;
+  color: #cc0000;
 }
